@@ -58,10 +58,11 @@ client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
 city,dat,wea, temperature = get_weather()
 focus = "热爱学习，热爱当下！"
-data = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
-res = wm.send_template(user_id, template_id, data)
-print(res)
-city2,dat,wea, temperature = get_weather2()
-data2 = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city2},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
-res2 = wm.send_template(user_id2, template_id2, data2)
-print(res2)
+if (get_birthday() >= 0 and get_birthday() < 200):
+  data = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+  res = wm.send_template(user_id, template_id, data)
+  print(res)
+#   city2,dat,wea, temperature = get_weather2()
+#   data2 = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city2},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+#   res2 = wm.send_template(user_id2, template_id2, data2)
+#   print(res2)
