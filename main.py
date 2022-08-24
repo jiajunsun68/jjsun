@@ -10,17 +10,26 @@ today = datetime.now()
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']
+start_date2 = os.environ['START_DATE2']
+city2 = os.environ['CITY2']
+birthday2 = os.environ['BIRTHDAY2']
 
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
-print(app_id)
 
 user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
-print(app_id)
+user_id2 = os.environ["USER_ID2"]
+template_id2 = os.environ["TEMPLATE_ID2"]
 
 def get_weather():
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  res = requests.get(url).json()
+  weather = res['data']['list'][0]
+  return weather['city'],weather['date'],weather['weather'], math.floor(weather['temp'])
+
+def get_weather2():
+  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city2
   res = requests.get(url).json()
   weather = res['data']['list'][0]
   return weather['city'],weather['date'],weather['weather'], math.floor(weather['temp'])
@@ -52,3 +61,7 @@ focus = "热爱学习，热爱当下！"
 data = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
+city2,dat,wea, temperature = get_weather2()
+data2 = {"focus":{"value":focus,"color":get_random_color()},"date":{"value":dat},"city":{"value":city2},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+res2 = wm.send_template(user_id2, template_id2, data2)
+print(res2)
