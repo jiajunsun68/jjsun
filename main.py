@@ -36,15 +36,13 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
+  words = requests.get("http://open.iciba.com/dsapi/")
   if words.status_code != 200:
     return get_words()
-  print(words.json()['data']['text'])
-  return words.json()['data']['text']
+  return words.json()['content']
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
-
 
 client = WeChatClient(app_id, app_secret)
 
